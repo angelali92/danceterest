@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<!--//////// START HTML /////////-->
+<html ng-app="pinterestApp">
+
+<!--========== START HEAD SECTION ==========-->
+<head>
+	<title>Pinterest Knockoff</title>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!--Bootstrap after jQuery-->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></link>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<!--========== END HEAD SECTION ==========-->
+
+<!--********** START BODY SECTION **********-->
+<body>
+
+	<!--+++++++++ Start Pin Controller ++++++++-->
+	<div ng-controller="PinCtrl" ng-init="myVisible = false">
+		
+		<!-- Start Navigation Bar-->
+		<div id="nav-bar">
+			<input id="search" placeholder="  Search for a category." type="text" ng-model="searchText"/>
+			<h1>My Pinterest</h1>
+			<button class="button" type="button" ng-click="myVisible0 = !myVisible0">Add a Pin</button>
+		</div>
+		<br/><br><hr/>
+		<!-- End Navigation Bar -->
+
+
+		<!-- Start Add Pin Section -->
+		<div id="addPin">
+			<!-- Run a function when the form is submited that adds the pet to the available list -->
+			<form ng-submit="addNewItem();" ng-show="myVisible0">
+				<!-- Pin Name -->
+				<input type="name" size="30" placeholder="Enter pin name here" x-ng-model="newPinName"> <br/><br/>
+				<!-- Pin Type: Select Previous -->
+				<br/>
+				<select x-ng-model="newPinType" placeholder="Select a pin type here" ng-options="type for type in pinTypes"></select> <br/>
+				<!-- Pin Type: Input New -->
+				<input type="text" size="30" placeholder="Enter pin category here" x-ng-model="newPinType"> <br/><br/>
+				<!-- Pin Url -->
+				<input type="text" size="30" placeholder="Enter image url here" x-ng-model="newPinUrl"> <br/><br/>
+				<br/><br/>
+				<!-- Add Button -->
+				<input class="button" type="submit" value="Add an Item">
+			</form>
+			<br/>
+		</div>
+		<!-- End Add Item Section -->
+
+
+		<!-- Start Pins Section -->
+		<div id="columns">
+			<div ng-repeat="pin in pins | orderByPriority | filter:searchText">
+				<!-- On mouse over and mouse leave, toggle myVisible variable. -->
+				<div class="pin">
+					<img ng-src="{{ sce.trustAsResourceUrl(pin.url) }}">
+					</img>
+					<!-- Declare myVisible variable for visibility of description boxes. -->
+					<div class="description" id="{{pin.id}}">
+						<p style="font-size: 18px"> 
+							<b>{{pin.name}} </b> <br/>
+							<button class="button" type="button">Pin It!</button><br/><br/>
+						</p>
+					</div>
+				</div>
+			</div> 
+		</div>
+		<!-- End Pins Section -->
+
+	</div>
+	<!--+++++++++ End Pin Controller +++++++++-->
+
+
+	<!--+++++++++ Start Scripts +++++++++-->
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
+
+	<!-- Firebase -->
+	<script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+
+	<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-sanitize.min.js"></script>
+	<script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
+
+	<script type="text/javascript" src="js/main.js"></script>
+	<!--+++++++++ End Scripts +++++++++-->
+
+</body>
+<!-- ********** END BODY SECTION **********-->
+
+</html>
+<!-- //////// END HTML ////////-->
