@@ -6,12 +6,26 @@
 <!--========== START HEAD SECTION ==========-->
 <head>
 	<title>Pinterest Knockoff</title>
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	<!--+++++++++ Start Scripts +++++++++-->
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
+	<!-- Firebase -->
+	<script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+	<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-sanitize.min.js"></script>
+	<script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
+	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<!--Bootstrap after jQuery-->
+	<!-- Bootstrap after jQuery -->
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></link>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<!-- Personal Files -->
+	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/main.js"></script>
+	<!--+++++++++ End Scripts +++++++++-->
 </head>
 <!--========== END HEAD SECTION ==========-->
 
@@ -20,16 +34,96 @@
 
 	<!--+++++++++ Start Pin Controller ++++++++-->
 	<div ng-controller="PinCtrl" ng-init="myVisible = false">
-		
+
+	<!-- Start Bootstrap Nav Bar -->
+	<div id="nav" style="margin:0 auto">
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" style="color:#D10031" href="index.html">Danceterest</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li class="active"><a href="#">Link</a></li>
+		        <li><a href="#">Link</a></li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+		          <ul class="dropdown-menu" role="menu">
+		            <li><a href="#">Action</a></li>
+		            <li><a href="#">Another action</a></li>
+		            <li><a href="#">Something else here</a></li>
+		            <li class="divider"></li>
+		            <li><a href="#">Separated link</a></li>
+		            <li class="divider"></li>
+		            <li><a href="#">One more separated link</a></li>
+		          </ul>
+		        </li>
+		      </ul>
+
+		      <form class="navbar-form navbar-left" role="search">
+		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="Search for a Pin" 
+		          	ng-model="searchText">
+		        </div>
+		      </form>
+
+		      <form class="navbar-form navbar-right" role="search">
+<!-- 		        <div class="form-group">
+		          <input type="text" class="form-control" placeholder="Search">
+		        </div> -->
+		        <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">Add Pin</button>
+		      </form>
+
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+	</div>
+	<!-- End Bootstrap Nav Bar -->
+
 		<!-- Start Navigation Bar-->
-		<div id="nav-bar">
+<!-- 		<div id="nav-bar">
 			<input id="search" placeholder="  Search for a category." type="text" ng-model="searchText"/>
 			<h1>My Pinterest</h1>
 			<button class="button" type="button" ng-click="myVisible0 = !myVisible0">Add a Pin</button>
 		</div>
-		<br/><br><hr/>
+		<br/><br><hr/> -->
 		<!-- End Navigation Bar -->
 
+		<!-- Start Bootstrap Add Pin Section -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<input type="name" size="30" placeholder="Enter pin name here" x-ng-model="newPinName" class="form-control">
+				<!-- Pin Type: Select Previous -->
+				<br/>
+				<select x-ng-model="newPinType" placeholder="Select a pin type here" ng-options="type for type in pinTypes" class="dropdown-toggle form-control"></select> <br/>
+				<!-- Pin Type: Input New -->
+				<input type="text" size="30" placeholder="Enter pin category here" x-ng-model="newPinType" class="form-control"> <br/>
+				<!-- Pin Url -->
+				<input type="text" size="30" placeholder="Enter image url here" x-ng-model="newPinUrl" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" ng-click="addNewItem();">Save changes</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		<!-- End Bootstrap Add Pin Section -->
 
 		<!-- Start Add Pin Section -->
 		<div id="addPin">
@@ -54,43 +148,32 @@
 
 
 		<!-- Start Pins Section -->
-		<div id="columns">
-			<div ng-repeat="pin in pins | orderByPriority | filter:searchText">
+		<div id="column-container">
+		<ul id="columns">
+			<li class="pin" ng-repeat="pin in pins | orderByPriority | filter:searchText">
 				<!-- On mouse over and mouse leave, toggle myVisible variable. -->
-				<div class="pin">
+				<div class="innerPin" ng-mouseover="myVisible = false" ng-mouseleave="myVisible = true" ng-init="myVisible = true">
 					<img ng-src="{{ sce.trustAsResourceUrl(pin.url) }}">
 					</img>
 					<!-- Declare myVisible variable for visibility of description boxes. -->
 					<div class="description" id="{{pin.id}}">
 						<p style="font-size: 18px"> 
 							<b>{{pin.name}} </b> <br/>
-							<button class="button" type="button">Pin It!</button><br/><br/>
+							<button type="submit" 
+								class="btn btn-danger" ng-class="{'true':'pinIt', 'false': 'pinIt-hover'}[myVisible]">
+									Pin It!
+							</button>
+							<!-- <button class="button" type="button">Pin It!</button><br/><br/> -->
 						</p>
 					</div>
 				</div>
-			</div> 
+			</li> 
+		</ul>
 		</div>
 		<!-- End Pins Section -->
 
 	</div>
 	<!--+++++++++ End Pin Controller +++++++++-->
-
-
-	<!--+++++++++ Start Scripts +++++++++-->
-	<!-- AngularJS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
-
-	<!-- Firebase -->
-	<script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
-
-	<!-- AngularFire -->
-	<script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-sanitize.min.js"></script>
-	<script src="https://cdn.firebase.com/js/simple-login/1.6.2/firebase-simple-login.js"></script>
-
-	<script type="text/javascript" src="js/main.js"></script>
-	<!--+++++++++ End Scripts +++++++++-->
-
 </body>
 <!-- ********** END BODY SECTION **********-->
 

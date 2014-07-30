@@ -2,27 +2,38 @@
 body {
 	background-image: url('../img/bg.png');
 	text-align: center;
-	font-family: 'Ubuntu', sans-serif;
-	padding-bottom: 100px;
+	font-family: 'Open Sans', sans-serif;
 }
 /*====== End Body ======*/
+
+/*====== Bootstrap Navigation Bar ======*/
+.navbar-brand {
+	font-family: 'Pacifico', sans-serif;
+	font-size: 30px;
+}
+
+.form-control:focus {
+	border-color: gray;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px gray;
+}
+/*====== End Bootstrap Navigation Bar ======*/
 
 /*====== Navigation Bar ======*/
 #nav-bar {
 	list-style-type: none;
 	display: inline-block;
-	margin-left: -11%;
-	padding: 0;
+/*	margin-left: -11%;*/
+	padding: 0px;
+	margin: 0px;
 }
 
-input {
-	position: relative;
+/*input {
 	display: inline-block;
 	height: 25px;
 	top: 15px;
 	border: 3px dashed gray;
 	color: gray;
-}
+}*/
 
 h1 {
 	position: relative;
@@ -58,15 +69,33 @@ select {
 /*====== End Add Pin ======*/
 
 /*====== Pins ======*/
-.item {
-	display: inline-block;
-	padding: 5px;
+#column-container {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	padding-bottom: 100px;
+	padding-right: 40px;
+	padding-top: 10px;
+}
+
+#columns {
+    -moz-column-count: 1;
+    -moz-column-gap: 10px;
+    -moz-column-fill: balance;
+    -webkit-column-count: 1;
+    -webkit-column-gap: 10px;
+    -webkit-column-fill: auto;
+    column-count: 1;
+    column-gap: 15px;
+    column-fill: auto;
 }
 
 .pin {
+	list-style-type: none;
 	display: inline-block;
 	background: #FEFEFE;
 	border: 2px solid #FAFAFA;
+	border-radius: 5px;
 	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
 	margin: 0 2px 15px;
 	-webkit-column-break-inside: avoid;
@@ -75,7 +104,7 @@ select {
 	padding: 15px;
 	padding-bottom: 5px;
 	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-	opacity: 1;
+	opacity: 0.8;
 	
 	-webkit-transition: all .2s ease;
 	-moz-transition: all .2s ease;
@@ -92,31 +121,57 @@ select {
 }
 
 .pin p {
-	font: 12px/18px Arial, sans-serif;
+	font-family:'Open Sans', sans-serif;
 	color: #333;
 	margin: 0;
 }
 
-#columns {
-    -moz-column-count: 1;
-    -moz-column-gap: 10px;
-    -moz-column-fill: balance;
-    -webkit-column-count: 1;
-    -webkit-column-gap: 10px;
-    -webkit-column-fill: auto;
-    column-count: 1;
-    column-gap: 15px;
-    column-fill: auto;
+.pin:hover {
+	-moz-box-shadow: 0 0 0px black;
+	-moz-background: rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 0 0px black;
+	-webkit-background: rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 0px black;
+	background: rgba(0,0,0,0.2);
 }
 
-#columns:hover .pin:not(:hover) {
-	opacity: 0.7;
+.innerPin {
+	padding-bottom: 10px;
 }
 
 .description {
 	border: 4px dashed gray;
 }
-/*====== End Pins ======*/
+
+.description p {
+	margin: 10px;
+}
+
+.pinIt {
+	font-family: 'Pacifico', sans-serif;
+	font-size: 18px;
+	background-color: gray;
+	border-color: gray;
+	margin: 5px;
+}
+
+.pinIt-hover {
+	font-family: 'Pacifico', sans-serif;
+	font-size: 18px;
+	background-color: #B00B0B;
+	border-color: #850909;
+	margin: 5px;
+}
+
+.btn-danger:hover {
+/*	background-color: #B00B0B;
+	border-color: #850909;*/
+	background: -webkit-radial-gradient(red, #7A0606); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(red, #7A0606); /* For Opera 11.6 to 12.0 */
+    background: -moz-#7A0606; /* For Firefox 3.6 to 15 */
+    background: radial-gradient(red, #7A0606); /* Standard syntax (must be last) */
+}
+/*====== End Pins ======
 
 /*==== Start Responsiveness ====*/
 @media (min-width: 320px) {
@@ -156,6 +211,14 @@ select {
 		-webkit-column-count: 5;
 		-moz-column-count: 5;
 		column-count: 5;
+	}
+}
+
+@media (min-width: 1700px) {
+	#columns {
+		-webkit-column-count: 6;
+		-moz-column-count: 6;
+		column-count: 6;
 	}
 }
 /*==== End Responsiveness ====*/

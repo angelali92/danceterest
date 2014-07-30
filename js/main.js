@@ -1,7 +1,3 @@
-    $(function() {
-        $(".flex").flex();
-    });
-
 // Angular JS.
 var app = angular.module('pinterestApp', ['firebase', 'ngSanitize']);
 app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin',
