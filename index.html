@@ -56,7 +56,9 @@
 		        <li class="active"><a href="#">Link</a></li>
 		        <li><a href="#">Link</a></li>
 		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Angela Li 
+		          	<img width="20px" height="20px" ng-src="{{accountImg}}"></img>	
+		          <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
 		            <li><a href="#">Action</a></li>
 		            <li><a href="#">Another action</a></li>
@@ -107,45 +109,27 @@
 						<h4 class="modal-title">Modal title</h4>
 					</div>
 					<div class="modal-body">
-						<input type="name" size="30" placeholder="Enter pin name here" x-ng-model="newPinName" class="form-control">
-				<!-- Pin Type: Select Previous -->
-				<br/>
-				<select x-ng-model="newPinType" placeholder="Select a pin type here" ng-options="type for type in pinTypes" class="dropdown-toggle form-control"></select> <br/>
-				<!-- Pin Type: Input New -->
-				<input type="text" size="30" placeholder="Enter pin category here" x-ng-model="newPinType" class="form-control"> <br/>
-				<!-- Pin Url -->
-				<input type="text" size="30" placeholder="Enter image url here" x-ng-model="newPinUrl" class="form-control">
+						<!-- Pin Type: Name -->
+						<input type="name" size="30" placeholder="Enter pin name" x-ng-model="newPinName" class="form-control"> <br/>
+						<!-- Pin Type: Select Previous -->
+						<div class="form-inline" role="form">
+							<select style="float:left;" x-ng-model="newPinType" ng-options="type for type in pinTypes" class="dropdown-toggle form-control">
+								<option value="">Select a pin category</option>
+							</select><div id="or"> Or </div>
+							<!-- Pin Type: Input New -->
+							<input type="text" size="30" placeholder="Enter a new pin category" x-ng-model="newPinType" class="form-control" style="float:right;"> <br/>
+						</div> <br/> <br/>
+						<!-- Pin Url -->
+						<input type="text" size="30" placeholder="Enter image url" x-ng-model="newPinUrl" class="form-control">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" ng-click="addNewItem();">Save changes</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewItem();">Save changes</button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 		<!-- End Bootstrap Add Pin Section -->
-
-		<!-- Start Add Pin Section -->
-		<div id="addPin">
-			<!-- Run a function when the form is submited that adds the pet to the available list -->
-			<form ng-submit="addNewItem();" ng-show="myVisible0">
-				<!-- Pin Name -->
-				<input type="name" size="30" placeholder="Enter pin name here" x-ng-model="newPinName"> <br/><br/>
-				<!-- Pin Type: Select Previous -->
-				<br/>
-				<select x-ng-model="newPinType" placeholder="Select a pin type here" ng-options="type for type in pinTypes"></select> <br/>
-				<!-- Pin Type: Input New -->
-				<input type="text" size="30" placeholder="Enter pin category here" x-ng-model="newPinType"> <br/><br/>
-				<!-- Pin Url -->
-				<input type="text" size="30" placeholder="Enter image url here" x-ng-model="newPinUrl"> <br/><br/>
-				<br/><br/>
-				<!-- Add Button -->
-				<input class="button" type="submit" value="Add an Item">
-			</form>
-			<br/>
-		</div>
-		<!-- End Add Item Section -->
-
 
 		<!-- Start Pins Section -->
 		<div id="column-container">
@@ -153,6 +137,7 @@
 			<li class="pin" ng-repeat="pin in pins | orderByPriority | filter:searchText">
 				<!-- On mouse over and mouse leave, toggle myVisible variable. -->
 				<div class="innerPin" ng-mouseover="myVisible = false" ng-mouseleave="myVisible = true" ng-init="myVisible = true">
+					<span style="top:-6px;" class="glyphicon glyphicon-remove close" ng-click="removePin(pin);"></span>
 					<img ng-src="{{ sce.trustAsResourceUrl(pin.url) }}">
 					</img>
 					<!-- Declare myVisible variable for visibility of description boxes. -->

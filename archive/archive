@@ -1,0 +1,20 @@
+<!-- Start Add Pin Section -->
+<div id="addPin">
+	<!-- Run a function when the form is submited that adds the pet to the available list -->
+	<form ng-submit="addNewItem();" ng-show="myVisible0">
+		<!-- Pin Name -->
+		<input type="name" size="30" placeholder="Enter pin name here" x-ng-model="newPinName"> <br/><br/>
+		<!-- Pin Type: Select Previous -->
+		<br/>
+		<select x-ng-model="newPinType" placeholder="Select a pin type here" ng-options="type for type in pinTypes"></select> <br/>
+		<!-- Pin Type: Input New -->
+		<input type="text" size="30" placeholder="Enter pin category here" x-ng-model="newPinType"> <br/><br/>
+		<!-- Pin Url -->
+		<input type="text" size="30" placeholder="Enter image url here" x-ng-model="newPinUrl"> <br/><br/>
+		<br/><br/>
+		<!-- Add Button -->
+		<input class="button" type="submit" value="Add an Item">
+	</form>
+	<br/>
+</div>
+<!-- End Add Item Section -->

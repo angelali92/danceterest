@@ -15,8 +15,24 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	// Define pinTypes array.
 	$scope.pinTypes = ["Ballet"];
 
+	// // Define account picture.
+	$scope.accountImg = "img/babysis.png";
+
 	// Define pins variable. Array of Objects.
 	$scope.pins = $firebase(pinsRef);
+
+	pinsRef.on("child_added", function(snapshot){
+		var newType = snapshot.val().type;
+		var isOld = false;
+
+		angular.forEach($scope.pinTypes, function(pinType) {
+			if(newType === pinType)
+				isOld = true;
+		});
+
+		if(!isOld)
+			$scope.pinTypes.push(newType);
+	});	
 
 	$scope.loginWithFacebook = function() {
 		$scope.auth.$login("facebook").then(function(user) {
@@ -48,5 +64,12 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 
 		$scope.myVisible0 = !$scope.myVisible0;
 	};
+
+	$scope.removePin = function(pin) {
+		if(confirm("Are you sure you want to delete this pin?")) {
+			var itemRef = new Firebase("https://angelapinterest.firebaseio.com/" + pin.$id);
+			itemRef.remove();
+		}
+	}
 }]);
 
