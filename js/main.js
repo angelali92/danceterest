@@ -3,7 +3,10 @@ var app = angular.module('pinterestApp', ['firebase', 'ngSanitize']);
 app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin',
 	function ($scope, $firebase, $sce, $firebaseSimpleLogin) {
 
-	var pinsRef = new Firebase("https://angelapinterest.firebaseio.com/");
+	var pinsRef = new Firebase("https://angelapinterest.firebaseio.com/pins/");
+	var boardRef = new Firebase("https://angelapinterest.firebaseio.com/board/");
+	var accountsRef = new Firebase("https://angelapinterest.firebaseio.com/accounts/");
+
 	$scope.sce = $sce;
 	$scope.auth = $firebaseSimpleLogin(pinsRef);
 
@@ -15,11 +18,12 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	// Define pinTypes array.
 	$scope.pinTypes = ["Ballet"];
 
-	// // Define account picture.
+	// Define account picture.
 	$scope.accountImg = "img/babysis.png";
 
-	// Define pins variable. Array of Objects.
-	$scope.pins = $firebase(pinsRef);
+	// Link to Firebase
+	$scope.pins = $firebase(pinsRef).$asArray();
+	$scope.boards = $firebase(boardRef).$asArray();
 
 	pinsRef.on("child_added", function(snapshot){
 		var newType = snapshot.val().type;
@@ -67,9 +71,22 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 
 	$scope.removePin = function(pin) {
 		if(confirm("Are you sure you want to delete this pin?")) {
-			var itemRef = new Firebase("https://angelapinterest.firebaseio.com/" + pin.$id);
+			var itemRef = new Firebase("https://angelapinterest.firebaseio.com/pins/" + pin.$id);
 			itemRef.remove();
 		}
+	}
+
+	$scope.pinIt = function(pin, name, type, url) {
+		// Add to your board.
+		$scope.boards.$add({ name: name,
+						   type: type,
+						   url: url
+						});
+
+		// Change the value for "pinned" to "true".
+		var itemRef = new Firebase("https://angelapinterest.firebaseio.com/pins/" + pin.$id);
+		var tempPin = $firebase(itemRef);
+		tempPin.$update({pinned: true});
 	}
 }]);
 
