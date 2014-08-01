@@ -32,7 +32,7 @@ body {
     padding-right: 7%;
 }
 
-@media (min-width: 320px) {
+@media (min-width: 480px) {
 	#columns1 {
 		-webkit-column-count: 2;
 		-moz-column-count: 2;

@@ -17,36 +17,54 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 
 	// Define pinTypes array.
 	$scope.pinTypes = [];
+	$scope.boards = [];
 
 	// Define account picture.
 	$scope.accountImg = "img/babysis.png";
 
 	// Link to Firebase
 	$scope.pins = $firebase(pinsRef).$asArray();
-	$scope.boards = $firebase(boardRef).$asArray();
+	// $scope.boards = $firebase(boardRef).$asArray();
 
-	pinsRef.once("value", function(allsnapshot){
-		var pinned = [];
-		allsnapshot.forEach(function(snapshot){
-			if(snapshot.child('pinned').val())
-				pinned.push(snapshot.val());
-		});
+	// pinsRef.once("value", function(allsnapshot){
+	// 	var pinned = [];
+	// 	allsnapshot.forEach(function(snapshot){
+	// 		if(snapshot.child('pinned').val())
+	// 			pinned.push(snapshot.val());
+	// 	});
 
-		boardRef.set(pinned);
-	});	
+	// 	boardRef.set(pinned);
+	// });	
 
 	pinsRef.on("child_added", function(snapshot){
 		var newType = snapshot.val().type;
 		var isOld = false;
+		var isPinned = snapshot.val().pinned;
 
 		angular.forEach($scope.pinTypes, function(pinType) {
 			if(newType === pinType)
 				isOld = true;
 		});
-
 		if(!isOld)
 			$scope.pinTypes.push(newType);
-	});	
+
+		if(isPinned)
+			$scope.boards.push(snapshot.val());
+	});
+
+	pinsRef.on("child_removed", function(snapshot){
+		if(snapshot.val().pinned)
+		{
+			for(var i = 0; i < $scope.boards.length; i++) {
+				if(snapshot.val().name === $scope.boards[i].name &&
+				   snapshot.val().type === $scope.boards[i].type &&
+				   snapshot.val().url === $scope.boards[i].url) {
+				   	alert("values are true");
+					$scope.boards.splice(i,1);
+				}
+			}
+		}
+	})	
 
 	$scope.loginWithFacebook = function() {
 		$scope.auth.$login("facebook").then(function(user) {
@@ -88,7 +106,7 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 
 	$scope.pinIt = function(pin, name, type, url) {
 		// Add to your board.
-		$scope.boards.$add({ name: name,
+		$scope.boards.push({ name: name,
 						   type: type,
 						   url: url
 						});
