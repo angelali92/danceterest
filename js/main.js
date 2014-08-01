@@ -4,7 +4,6 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	function ($scope, $firebase, $sce, $firebaseSimpleLogin) {
 
 	var pinsRef = new Firebase("https://angelapinterest.firebaseio.com/pins/");
-	var boardRef = new Firebase("https://angelapinterest.firebaseio.com/board/");
 	var accountsRef = new Firebase("https://angelapinterest.firebaseio.com/accounts/");
 
 	$scope.sce = $sce;
@@ -59,7 +58,6 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 				if(snapshot.val().name === $scope.boards[i].name &&
 				   snapshot.val().type === $scope.boards[i].type &&
 				   snapshot.val().url === $scope.boards[i].url) {
-				   	alert("values are true");
 					$scope.boards.splice(i,1);
 				}
 			}
@@ -104,17 +102,29 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 		}
 	}
 
-	$scope.pinIt = function(pin, name, type, url) {
+	$scope.pinIt = function(pin) {
 		// Add to your board.
-		$scope.boards.push({ name: name,
-						   type: type,
-						   url: url
+		$scope.boards.push({ name: pin.name,
+						   type: pin.type,
+						   url: pin.url
 						});
 
 		// Change the value for "pinned" to "true".
 		var itemRef = new Firebase("https://angelapinterest.firebaseio.com/pins/" + pin.$id);
 		var tempPin = $firebase(itemRef);
 		tempPin.$update({pinned: true});
+	}
+
+	$scope.removeFavPin = function(pin) {
+		if(confirm("Are you sure you want to remove pin from your Favorites?")) {
+			for(var i = 0; i < $scope.boards.length; i++) {
+				if(pin.name === $scope.boards[i].name &&
+				   pin.type === $scope.boards[i].type &&
+				   pin.url === $scope.boards[i].url) {
+					$scope.boards.splice(i,1);
+				}
+			}
+		}
 	}
 }]);
 

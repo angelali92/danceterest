@@ -5,7 +5,7 @@
 
 <!--========== START HEAD SECTION ==========-->
 <head>
-	<title>Pinterest Knockoff</title>
+	<title>Danceterest</title>
 	<!--+++++++++ Start Scripts +++++++++-->
 	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
@@ -132,6 +132,7 @@
 			<ul id="columns1">
 				<li class="pin" ng-repeat="board in boards">
 					<div class="innerPin" ng-mouseover="myVisible0 = false" ng-mouseleave="myVisible0 = true" ng-init="myVisible0 = true">
+						<span style="top:-6px;width:70%;left:30%;" class="glyphicon glyphicon-remove close" ng-click="removeFavPin(board)"></span>
 						<img ng-src="{{sce.trustAsResourceUrl(board.url)}}"/>
 						<!-- Declare myVisible variable for visibility of description boxes. -->
 						<div class="description" id="{{pin.id}}">
@@ -166,7 +167,7 @@
 					<div class="description" id="{{pin.id}}">
 						<p style="font-size: 18px"> 
 							<b>{{pin.name}} </b> <br/>
-							<button type="submit" ng-show="!pin.pinned" ng-click="pinIt(pin, pin.name, pin.type, pin.url);"
+							<button type="submit" ng-show="!pin.pinned" ng-click="pinIt(pin);"
 								class="btn btn-danger" ng-class="{'true':'pinIt', 'false': 'pinIt-hover'}[myVisible]">
 									Pin It!
 							</button>
