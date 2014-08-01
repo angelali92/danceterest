@@ -16,7 +16,7 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	$scope.newPinUrl = "";
 
 	// Define pinTypes array.
-	$scope.pinTypes = ["Ballet"];
+	$scope.pinTypes = [];
 
 	// Define account picture.
 	$scope.accountImg = "img/babysis.png";
@@ -24,6 +24,16 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	// Link to Firebase
 	$scope.pins = $firebase(pinsRef).$asArray();
 	$scope.boards = $firebase(boardRef).$asArray();
+
+	pinsRef.once("value", function(allsnapshot){
+		var pinned = [];
+		allsnapshot.forEach(function(snapshot){
+			if(snapshot.child('pinned').val())
+				pinned.push(snapshot.val());
+		});
+
+		boardRef.set(pinned);
+	});	
 
 	pinsRef.on("child_added", function(snapshot){
 		var newType = snapshot.val().type;

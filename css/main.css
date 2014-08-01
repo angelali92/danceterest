@@ -18,11 +18,36 @@ body {
 }
 /*====== End Bootstrap Navigation Bar ======*/
 
-/*====== Navigation Bar ======*/
+/*====== Add to Board ======*/
+#columns1 {
+    -moz-column-count: 1;
+    -moz-column-gap: 10px;
+    -moz-column-fill: balance;
+    -webkit-column-count: 1;
+    -webkit-column-gap: 10px;
+    -webkit-column-fill: auto;
+    column-count: 1;
+    column-gap: 15px;
+    column-fill: auto;
+    padding-right: 7%;
+}
 
+@media (min-width: 320px) {
+	#columns1 {
+		-webkit-column-count: 2;
+		-moz-column-count: 2;
+		column-count: 2;
+	}
+}
 
-
-/*====== End Navigation Bar ======*/
+@media (min-width: 767px) {
+	#columns1 {
+		-webkit-column-count: 3;
+		-moz-column-count: 3;
+		column-count: 3;
+	}
+}
+/*====== End Add to Board ======*/
 
 /*====== Add Pin ======*/
 #or {
