@@ -14,31 +14,22 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	$scope.newPinType = "";
 	$scope.newPinUrl = "";
 
+	// Create show booleans.
+	$scope.isPins = true;
+	$scope.isBoard = false;
+
 	// Define pinTypes array.
 	$scope.pinTypes = [];
-	$scope.boards = [];
 
 	// Define account picture.
 	$scope.accountImg = "img/babysis.png";
 
 	// Link to Firebase
 	$scope.pins = $firebase(pinsRef).$asArray();
-	// $scope.boards = $firebase(boardRef).$asArray();
-
-	// pinsRef.once("value", function(allsnapshot){
-	// 	var pinned = [];
-	// 	allsnapshot.forEach(function(snapshot){
-	// 		if(snapshot.child('pinned').val())
-	// 			pinned.push(snapshot.val());
-	// 	});
-
-	// 	boardRef.set(pinned);
-	// });	
 
 	pinsRef.on("child_added", function(snapshot){
 		var newType = snapshot.val().type;
 		var isOld = false;
-		var isPinned = snapshot.val().pinned;
 
 		angular.forEach($scope.pinTypes, function(pinType) {
 			if(newType === pinType)
@@ -46,23 +37,7 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 		});
 		if(!isOld)
 			$scope.pinTypes.push(newType);
-
-		if(isPinned)
-			$scope.boards.push(snapshot.val());
 	});
-
-	pinsRef.on("child_removed", function(snapshot){
-		if(snapshot.val().pinned)
-		{
-			for(var i = 0; i < $scope.boards.length; i++) {
-				if(snapshot.val().name === $scope.boards[i].name &&
-				   snapshot.val().type === $scope.boards[i].type &&
-				   snapshot.val().url === $scope.boards[i].url) {
-					$scope.boards.splice(i,1);
-				}
-			}
-		}
-	})	
 
 	$scope.loginWithFacebook = function() {
 		$scope.auth.$login("facebook").then(function(user) {
@@ -100,31 +75,38 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 			var itemRef = new Firebase("https://angelapinterest.firebaseio.com/pins/" + pin.$id);
 			itemRef.remove();
 		}
-	}
+	};
 
 	$scope.pinIt = function(pin) {
-		// Add to your board.
-		$scope.boards.push({ name: pin.name,
-						   type: pin.type,
-						   url: pin.url
-						});
-
 		// Change the value for "pinned" to "true".
 		var itemRef = new Firebase("https://angelapinterest.firebaseio.com/pins/" + pin.$id);
 		var tempPin = $firebase(itemRef);
 		tempPin.$update({pinned: true});
-	}
+	};
 
 	$scope.removeFavPin = function(pin) {
-		if(confirm("Are you sure you want to remove pin from your Favorites?")) {
-			for(var i = 0; i < $scope.boards.length; i++) {
-				if(pin.name === $scope.boards[i].name &&
-				   pin.type === $scope.boards[i].type &&
-				   pin.url === $scope.boards[i].url) {
-					$scope.boards.splice(i,1);
-				}
-			}
-		}
-	}
+		// Change the value for "pinned" to "true".
+		var itemRef = new Firebase("https://angelapinterest.firebaseio.com/pins/" + pin.$id);
+		var tempPin = $firebase(itemRef);
+		tempPin.$update({pinned: false});
+	};
+
+	$scope.showBoard = function() {
+		$scope.isBoard = true;
+		$scope.isPins = false;
+	};
+
+	$scope.showPins = function() {
+		$scope.isBoard = false;
+		$scope.isPins = true;
+	};
+
+	$scope.getBoard = function() {
+		return $scope.isBoard;
+	};
+
+	$scope.getPins = function() {
+		return $scope.isPins;
+	};
 }]);
 
