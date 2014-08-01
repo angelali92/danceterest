@@ -9,10 +9,11 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	$scope.sce = $sce;
 	$scope.auth = $firebaseSimpleLogin(pinsRef);
 
-	// Create blank form variables.
+	// Create blank variables.
 	$scope.newPinName = "";
 	$scope.newPinType = "";
 	$scope.newPinUrl = "";
+	$scope.zoomPic = "";
 
 	// Create show booleans.
 	$scope.isPins = true;
@@ -70,6 +71,11 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 		$scope.myVisible0 = !$scope.myVisible0;
 	};
 
+	$scope.setZoomPic = function(url) {
+		// alert("img: " + url);
+		$scope.zoomPic = url;
+	};
+
 	$scope.removePin = function(pin) {
 		if(confirm("Are you sure you want to delete this pin?")) {
 			var itemRef = new Firebase("https://angelapinterest.firebaseio.com/pins/" + pin.$id);
@@ -94,11 +100,15 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	$scope.showBoard = function() {
 		$scope.isBoard = true;
 		$scope.isPins = false;
+		document.getElementById("favBoard").className = "columns animated bounceInDown";
+		document.getElementById("pinBoard").className = "columns";
 	};
 
 	$scope.showPins = function() {
-		$scope.isBoard = false;
 		$scope.isPins = true;
+		$scope.isBoard = false;
+		document.getElementById("pinBoard").className = "columns animated bounceInDown";
+		document.getElementById("favBoard").className = "columns";
 	};
 
 	$scope.getBoard = function() {
@@ -108,5 +118,7 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	$scope.getPins = function() {
 		return $scope.isPins;
 	};
+
+
 }]);
 
