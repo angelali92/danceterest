@@ -1,35 +1,4 @@
 {
-  "board" : [ {
-    "name" : "Fairy",
-    "pinned" : true,
-    "type" : "Ballet",
-    "url" : "http://dancelines.com.au/wp-content/uploads/2013/11/Amy-Harris-in-Paquita-The-Australian-Ballet-2013-photo-Jeff-Busby_1133-e1384073369337.jpg"
-  }, {
-    "name" : "Heart",
-    "pinned" : true,
-    "type" : "Ballet",
-    "url" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjMu1o6s9JxgiAppeKizYVVCxSLGe8BVHWZvtlqYAsqWu5G3d3Rw"
-  }, {
-    "name" : "Princess Kraehe",
-    "pinned" : true,
-    "type" : "Ballet",
-    "url" : "http://2.bp.blogspot.com/-AjO5epjst_o/UoEYaQOt92I/AAAAAAAABpA/HwXLLOJtSok/s1600/Princess+Kraehe+6+cosplay+by+mussum.jpg"
-  }, {
-    "name" : "Chicago",
-    "pinned" : true,
-    "type" : "Jazz",
-    "url" : "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT8d9FUDm1FsUXOC38F7TeY2TmGxfaca1WuZWvTh3b8-bLvMIwfQA"
-  }, {
-    "name" : "Modern",
-    "pinned" : true,
-    "type" : "Modern",
-    "url" : "http://www.centerforexpressivearts.com/uploads/Event%20Images/modern%20dance.jpg"
-  }, {
-    "name" : "Romantic Tutu",
-    "pinned" : true,
-    "type" : "Ballet",
-    "url" : "http://media-cache-ec0.pinimg.com/236x/64/15/4e/64154e9759587c8880c2b6f37cf97c35.jpg"
-  } ],
   "pins" : {
     "-JSz_OHOVsFHzKAn5yRY" : {
       "name" : "Pas de Deux",
@@ -57,7 +26,7 @@
     },
     "-JSzc8jSNeusUlePhdQO" : {
       "name" : "Four Swans",
-      "pinned" : false,
+      "pinned" : true,
       "type" : "Ballet",
       "url" : "http://private-life.co.uk/wp-content/uploads/2013/01/russian-ballet--1024x680.jpg"
     },
@@ -96,12 +65,6 @@
       "pinned" : true,
       "type" : "Ballet",
       "url" : "http://2.bp.blogspot.com/-AjO5epjst_o/UoEYaQOt92I/AAAAAAAABpA/HwXLLOJtSok/s1600/Princess+Kraehe+6+cosplay+by+mussum.jpg"
-    },
-    "-JT8K0T7JLKELBnjQk6J" : {
-      "name" : "Chicago",
-      "pinned" : true,
-      "type" : "Jazz",
-      "url" : "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT8d9FUDm1FsUXOC38F7TeY2TmGxfaca1WuZWvTh3b8-bLvMIwfQA"
     },
     "-JT8LlA9bYHJpekCIijp" : {
       "name" : "Hip Hop",
