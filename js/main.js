@@ -10,13 +10,16 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	$scope.auth = $firebaseSimpleLogin(pinsRef);
 
 	// Create blank variables.
+	$scope.searchText = "";
 	$scope.newPinName = "";
 	$scope.newPinType = "";
 	$scope.newPinUrl = "";
+	$scope.currentCategory = "";
 	$scope.zoomPic = "";
 
 	// Create show booleans.
 	$scope.isPins = true;
+	$scope.isCat = false;
 	$scope.isBoard = false;
 
 	// Define pinTypes array.
@@ -100,15 +103,39 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 	$scope.showBoard = function() {
 		$scope.isBoard = true;
 		$scope.isPins = false;
+		$scope.isCat = false;
+
+		window.setTimeout(function() {
+			document.getElementById("favBoard").className = "columns";
+		},1000);
+
 		document.getElementById("favBoard").className = "columns animated bounceInDown";
-		document.getElementById("pinBoard").className = "columns";
 	};
+
+	$scope.showCat = function(cat) {
+		$scope.currentCategory = cat;
+
+		$scope.isCat = true;
+		$scope.isPins = false;
+		$scope.isBoard = false;
+		
+		window.setTimeout(function() {
+			document.getElementById("catBoard").className = "columns";
+		},1000);
+
+		document.getElementById("catBoard").className = "columns animated bounceInDown";		
+	}
 
 	$scope.showPins = function() {
 		$scope.isPins = true;
 		$scope.isBoard = false;
-		document.getElementById("pinBoard").className = "columns animated bounceInDown";
-		document.getElementById("favBoard").className = "columns";
+		$scope.isCat = false;
+		
+		window.setTimeout(function() {
+			document.getElementById("pinBoard").className = "columns";
+		},1000);
+
+		document.getElementById("pinBoard").className = "columns animated bounceInDown";	
 	};
 
 	$scope.getBoard = function() {

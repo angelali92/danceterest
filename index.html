@@ -51,6 +51,23 @@
 					<a class="navbar-brand" style="color:#D10031" href="#" ng-click="showPins();">Danceterest</a>
 			    </div>
 
+					<ul class="nav navbar-nav">
+						<!--Account Dropdown-->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Search by Type	
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" ng-click="showPins();">All</a></li>
+								<li ng-repeat="pinType in pinTypes">
+								<a href="#" ng-click="showCat(pinType);">{{pinType}}</a></li>
+							</ul>
+						</li>
+						<!--End Account Dropdown-->
+					</ul>
+
+
 			    <!-- Collect the nav links, forms, and other content for toggling -->
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<form class="navbar-form navbar-left" role="search">
@@ -135,6 +152,7 @@
 
 	<!-- Start Pins Section -->
 	<div id="column-container">
+		<!-- All Pins Board-->
 		<ul id="pinBoard" class="columns" ng-show="getPins();">
 			<li class="pin animated bounceInDown" ng-repeat="pin in pins | filter:searchText">
 				<!-- On mouse over and mouse leave, toggle myVisible variable. -->
@@ -160,8 +178,38 @@
 				</div>
 			</li> 
 		</ul>
+
+		<!-- Category Pins Board-->
+		<ul id="catBoard" class="columns" ng-show="getCat();">
+<!-- 			<li class="pin animated bounceInDown" ng-repeat="pin in pins | filter:searchText"> -->
+				<li class="pin animated bounceInDown" ng-repeat="pin in pins | filter:currentCategory | filter: searchText">
+				<!-- On mouse over and mouse leave, toggle myVisible variable. -->
+				<div class="innerPin" ng-mouseover="myVisible = false" ng-mouseleave="myVisible = true" ng-init="myVisible = true">
+					<span style="top:-6px;" class="glyphicon glyphicon-remove close" ng-click="removePin(pin);"></span>
+					<img ng-src="{{ sce.trustAsResourceUrl(pin.url) }}" ng-click="setZoomPic(pin.url);" data-toggle="modal" data-target="#zoomModal">
+					</img>
+					<!-- Declare myVisible variable for visibility of description boxes. -->
+					<div class="description" id="{{pin.id}}">
+						<p style="font-size: 18px"> 
+							<b>{{pin.name}} </b> <br/>
+							<button type="submit" ng-show="!pin.pinned" ng-click="pinIt(pin);"
+								class="btn btn-danger" ng-class="{'true':'pinIt', 'false': 'pinIt-hov'}[myVisible]">
+									Pin It!
+							</button>
+							<button type="submit" ng-show="pin.pinned" ng-click="removeFavPin(pin);"
+								class="btn btn-unpin" ng-class="{'true':'pinIt', 'false': 'unPin-hov'}[myVisible]">
+									Unpin
+							</button>
+							<!-- <button class="button" type="button">Pin It!</button><br/><br/> -->
+						</p>
+					</div>
+				</div>
+			</li> 
+		</ul>
+
+		<!-- Favorite Pins Board-->
 		<ul id="favBoard" class="columns" ng-show="getBoard();">
-			<li class="pin animated bounceInDown" ng-repeat="pin in pins | filter:'true'">
+			<li class="pin animated bounceInDown" ng-repeat="pin in pins | filter:'true' | filter: searchText">
 				<!-- On mouse over and mouse leave, toggle myVisible variable. -->
 				<div class="innerPin" ng-mouseover="myVisible = false" ng-mouseleave="myVisible = true" ng-init="myVisible = true">
 					<img ng-src="{{ sce.trustAsResourceUrl(pin.url) }}" ng-click="setZoomPic(pin.url)" data-toggle="modal" data-target="#zoomModal">
