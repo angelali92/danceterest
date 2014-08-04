@@ -146,6 +146,10 @@ app.controller('PinCtrl', ['$scope', '$firebase', '$sce', '$firebaseSimpleLogin'
 		return $scope.isPins;
 	};
 
+	$scope.getCat = function() {
+		return $scope.isCat;
+	};
+
 
 }]);
 
